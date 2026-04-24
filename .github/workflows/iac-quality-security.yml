@@ -1,0 +1,30 @@
+name: IaC Quality & Security Pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  terraform-checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Run TFLint
+        uses: terraform-linters/setup-tflint@v4
+      - run: tflint
+
+      - name: Run Checkov
+        uses: bridgecrewio/checkov-action@master
