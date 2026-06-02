@@ -1,11 +1,19 @@
 output "vpc_id" {
-  value = aws_vpc.main.id
+  description = "ID de la VPC"
+  value       = module.redes.vpc_id
 }
 
 output "subnet_id" {
-  value = aws_subnet.subnet.id
+  description = "ID de la subnet"
+  value       = module.redes.subnet_ids[0]
 }
 
 output "instance_id" {
-  value = aws_instance.ec2.id
+  description = "ID de la instancia EC2"
+  value       = module.computo.instance_id
+}
+
+output "instance_ip" {
+  description = "IP pública de la instancia"
+  value       = module.computo.instance_ip
 }

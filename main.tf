@@ -13,66 +13,22 @@ provider "aws" {
   region = var.aws_region
 }
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
-  owners      = ["099720109477"]
+module "redes" {
+  source = "./modules/redes"
 
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
-  }
+  vpc_cidr         = var.vpc_cidr
+  vpc_name         = "AUY1105-duocapp-vpc"
+  subnet_cidr      = var.subnet_cidr
+  subnet_name      = "AUY1105-duocapp-subnet"
+  sg_name          = "AUY1105-duocapp-sg"
+  allowed_ssh_cidr = var.allowed_ssh_cidr
 }
 
-resource "aws_vpc" "main" {
-  cidr_block = "10.1.0.0/16"
+module "computo" {
+  source = "./modules/computo"
 
-  tags = {
-    Name = "AUY1105-duocapp-vpc"
-  }
-}
-
-resource "aws_subnet" "subnet" {
-  vpc_id                  = aws_vpc.main.id
-  cidr_block              = "10.1.1.0/24"
-  map_public_ip_on_launch = true
-
-  tags = {
-    Name = "AUY1105-duocapp-subnet"
-  }
-}
-
-resource "aws_security_group" "sg" {
-  name        = "AUY1105-duocapp-sg"
-  description = "Allow SSH"
-  vpc_id      = aws_vpc.main.id
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [var.allowed_ssh_cidr]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "AUY1105-duocapp-sg"
-  }
-}
-
-resource "aws_instance" "ec2" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = "t2.micro"
-  subnet_id     = aws_subnet.subnet.id
-
-  vpc_security_group_ids = [aws_security_group.sg.id]
-
-  tags = {
-    Name = "AUY1105-duocapp-ec2"
-  }
+  instance_type     = "t2.micro"
+  subnet_id         = module.redes.subnet_ids[0]
+  security_group_id = module.redes.security_group_id
+  instance_name     = "AUY1105-duocapp-ec2"
 }
