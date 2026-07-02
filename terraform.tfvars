@@ -5,3 +5,5 @@ vpc_cidr = "10.1.0.0/16"
 subnet_cidr = "10.1.1.0/24"
 
 allowed_ssh_cidr = "10.1.0.0/16"
+
+existing_security_group_id = "sg-04e3966b404370cf3"

@@ -9,8 +9,8 @@ output "subnet_id" {
 }
 
 output "security_group_id" {
-  description = "ID del Security Group"
-  value       = module.redes.security_group_id
+  description = "ID del Security Group existente"
+  value       = var.existing_security_group_id
 }
 
 output "instance_id" {

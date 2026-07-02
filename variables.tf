@@ -21,3 +21,7 @@ variable "allowed_ssh_cidr" {
   type        = string
   default     = "10.1.0.0/16"
 }
+variable "existing_security_group_id" {
+  description = "ID del Security Group existente fuera del estado de Terraform"
+  type        = string
+}
