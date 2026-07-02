@@ -17,13 +17,3 @@ variable "subnet_name" {
   description = "Nombre de la subnet"
   type        = string
 }
-
-variable "sg_name" {
-  description = "Nombre del Security Group"
-  type        = string
-}
-
-variable "allowed_ssh_cidr" {
-  description = "CIDR autorizado para SSH"
-  type        = string
-}
