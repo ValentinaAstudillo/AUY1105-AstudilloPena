@@ -1,0 +1,117 @@
+# Terraform Init
+terraform init
+
+Terraform has been successfully initialized!
+
+---------------------------------------------------
+
+# Terraform Plan (Infraestructura inicial)
+terraform plan
+
+Plan: 4 to add, 0 to change, 0 to destroy.
+
+---------------------------------------------------
+
+# Terraform Apply
+terraform apply
+
+Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
+
+---------------------------------------------------
+
+# Terraform State List
+terraform state list
+
+module.computo.data.aws_ami.ubuntu
+module.computo.aws_instance.ec2
+module.redes.aws_security_group.sg
+module.redes.aws_subnet.subnet
+module.redes.aws_vpc.main
+
+---------------------------------------------------
+
+# Terraform Import
+
+terraform import module.redes.aws_vpc.main ...
+
+Import successful.
+
+terraform import module.redes.aws_subnet.subnet ...
+
+Import successful.
+
+terraform import module.redes.aws_security_group.sg ...
+
+Import successful.
+
+terraform import module.computo.aws_instance.ec2 ...
+
+Import successful.
+
+---------------------------------------------------
+
+# Terraform State Show
+
+terraform state show module.redes.aws_vpc.main
+
+(atributos de la VPC)
+
+terraform state show module.computo.aws_instance.ec2
+
+(atributos de la instancia)
+
+---------------------------------------------------
+
+# Terraform Refresh
+
+terraform refresh
+
+Outputs actualizados correctamente.
+
+---------------------------------------------------
+
+# Terraform Taint
+
+terraform taint module.computo.aws_instance.ec2
+
+Resource instance has been marked as tainted.
+
+---------------------------------------------------
+
+# Terraform Apply (Reemplazo)
+
+terraform apply
+
+Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
+
+---------------------------------------------------
+
+# Terraform Untaint
+
+terraform untaint module.computo.aws_instance.ec2
+
+Resource instance has been successfully untainted.
+
+---------------------------------------------------
+
+# Terraform State RM
+
+terraform state rm module.redes.aws_security_group.sg
+
+Successfully removed 1 resource instance(s).
+
+---------------------------------------------------
+
+# Terraform Validate
+
+terraform validate
+
+Success! The configuration is valid.
+
+---------------------------------------------------
+
+# Terraform Plan Final
+
+terraform plan
+
+No changes. Your infrastructure matches the configuration.
