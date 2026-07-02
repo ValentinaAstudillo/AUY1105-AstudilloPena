@@ -1,77 +1,156 @@
 # AUY1105 - Infraestructura como Código II
 
+## Evaluación Parcial N°3: Gestión avanzada de recursos de Terraform
+
 ## Descripción
 
-Este repositorio contiene la implementación de infraestructura como código utilizando Terraform. El proyecto fue refactorizado para utilizar módulos reutilizables de redes y cómputo siguiendo buenas prácticas de documentación, versionado y reutilización de código.
+Este repositorio contiene la implementación de infraestructura como código utilizando **Terraform** sobre **Amazon Web Services (AWS)**. El proyecto está organizado mediante módulos reutilizables y sigue buenas prácticas de documentación, modularización y gestión de infraestructura.
 
-## Objetivos
+En esta evaluación se incorporan técnicas avanzadas para la administración del estado de Terraform, permitiendo recuperar, sincronizar y mantener la infraestructura mediante el uso de comandos avanzados de Terraform CLI.
 
-* Implementar infraestructura en AWS mediante Terraform.
-* Desacoplar la infraestructura en módulos reutilizables.
-* Automatizar validaciones de calidad y seguridad mediante GitHub Actions.
-* Aplicar políticas de seguridad utilizando OPA.
-* Utilizar versionado semántico para la gestión de cambios.
+---
 
-## Tecnologías utilizadas
+# Objetivos
 
-* Terraform
-* AWS
-* GitHub Actions
-* Checkov
-* Open Policy Agent (OPA)
+- Implementar infraestructura en AWS utilizando Terraform.
+- Organizar el código mediante módulos reutilizables.
+- Mantener una estructura de proyecto escalable utilizando ambientes separados.
+- Gestionar correctamente el estado de Terraform.
+- Aplicar comandos avanzados como:
+  - `terraform import`
+  - `terraform state`
+  - `terraform refresh`
+  - `terraform taint`
+  - `terraform untaint`
+  - `terraform state rm`
+- Mantener la infraestructura sincronizada con el estado.
 
-## Estructura del proyecto
+---
+
+# Tecnologías utilizadas
+
+- Terraform
+- Amazon Web Services (AWS)
+- Git
+- GitHub
+- GitHub Actions
+- Checkov
+- Open Policy Agent (OPA)
+
+---
+
+# Estructura del proyecto
 
 ```text
 .
+├── environments
+│   ├── dev
+│   ├── staging
+│   └── prod
+│
 ├── modules
 │   ├── redes
 │   └── computo
-├── .github/workflows
+│
 ├── policies
+├── .github
+│   └── workflows
 ├── main.tf
+├── providers.tf
 ├── variables.tf
 ├── outputs.tf
+├── terraform.tfvars
 ├── README.md
 └── CHANGELOG.md
 ```
 
-## Módulo Redes
+---
 
-Permite crear:
+# Módulo Redes
 
-* VPC
-* Subnet pública
-* Security Group
+Este módulo implementa la infraestructura de red necesaria para el despliegue de la aplicación.
 
-Outputs:
+### Recursos creados
 
-* vpc_id
-* subnet_ids
-* security_group_id
+- VPC
+- Subred pública
+- Security Group
 
-## Módulo Computo
+### Outputs
 
-Permite crear:
+- `vpc_id`
+- `subnet_ids`
+- `security_group_id`
 
-* Instancia EC2
-* Obtención automática de AMI Ubuntu
+---
 
-Outputs:
+# Módulo Cómputo
 
-* instance_id
-* instance_ip
+Este módulo implementa la infraestructura de cómputo.
 
-## Ejecución
+### Recursos creados
+
+- Instancia EC2
+- Obtención automática de la última AMI Ubuntu disponible
+
+### Outputs
+
+- `instance_id`
+- `instance_ip`
+
+---
+
+# Comandos principales
 
 ```bash
 terraform init
+
 terraform validate
+
 terraform plan
+
 terraform apply
 ```
 
-## Integrantes
+---
 
-* Valentina Paz Astudillo Martínez
-* Catalina Antonia Peña Mora
+# Gestión avanzada del estado
+
+Durante esta evaluación se utilizarán los siguientes comandos de Terraform CLI:
+
+```bash
+terraform state list
+
+terraform state show
+
+terraform import
+
+terraform refresh
+
+terraform taint
+
+terraform untaint
+
+terraform state rm
+```
+
+---
+
+# Buenas prácticas implementadas
+
+- Modularización del código mediante módulos reutilizables.
+- Separación de proveedores en `providers.tf`.
+- Variables globales centralizadas.
+- Organización por ambientes (`dev`, `staging` y `prod`).
+- Gestión del estado de Terraform.
+- Documentación del proyecto.
+- Automatización mediante GitHub Actions.
+- Validaciones de seguridad con Checkov.
+- Políticas de seguridad utilizando Open Policy Agent (OPA).
+
+---
+
+# Integrantes
+
+- **Valentina Paz Astudillo Martínez**
+- **Catalina Antonia Peña Mora**
