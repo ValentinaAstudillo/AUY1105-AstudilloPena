@@ -1,3 +1,6 @@
+# -----------------------------
+# VPC
+# -----------------------------
 resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr
 
@@ -6,6 +9,9 @@ resource "aws_vpc" "main" {
   }
 }
 
+# -----------------------------
+# Subred pública
+# -----------------------------
 resource "aws_subnet" "subnet" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = var.subnet_cidr
@@ -16,12 +22,17 @@ resource "aws_subnet" "subnet" {
   }
 }
 
+# -----------------------------
+# Security Group
+# -----------------------------
 resource "aws_security_group" "sg" {
   name        = var.sg_name
   description = "Allow SSH"
   vpc_id      = aws_vpc.main.id
 
   ingress {
+    description = "SSH"
+
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
@@ -29,6 +40,8 @@ resource "aws_security_group" "sg" {
   }
 
   egress {
+    description = "Salida a Internet"
+
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
