@@ -8,6 +8,11 @@ output "subnet_id" {
   value       = module.redes.subnet_ids[0]
 }
 
+output "security_group_id" {
+  description = "ID del Security Group"
+  value       = module.redes.security_group_id
+}
+
 output "instance_id" {
   description = "ID de la instancia EC2"
   value       = module.computo.instance_id
