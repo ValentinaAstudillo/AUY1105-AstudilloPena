@@ -1,13 +1,7 @@
 variable "aws_region" {
-  description = "Región AWS"
+  description = "Región donde se desplegarán los recursos"
   type        = string
   default     = "us-east-1"
-}
-
-variable "allowed_ssh_cidr" {
-  description = "CIDR permitido para SSH"
-  type        = string
-  default     = "10.1.0.0/16"
 }
 
 variable "vpc_cidr" {
@@ -17,7 +11,13 @@ variable "vpc_cidr" {
 }
 
 variable "subnet_cidr" {
-  description = "CIDR de la subnet"
+  description = "CIDR de la subred pública"
   type        = string
   default     = "10.1.1.0/24"
+}
+
+variable "allowed_ssh_cidr" {
+  description = "Rango de IP permitido para SSH"
+  type        = string
+  default     = "10.1.0.0/16"
 }
